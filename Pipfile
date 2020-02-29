@@ -7,16 +7,18 @@ verify_ssl = true
 flake8 = "*"
 black = "*"
 autopep8 = "*"
-yapf = "*"
 
 [packages]
-django = "*"
+django = "==2.2.5"
 pillow = "*"
+django-countries = "*"
 django-seed = "*"
-djangorestframework = "*"
+django-dotenv = "*"
+requests = "*"
+pyjwt = "*"
 
 [requires]
-python_version = "3.8.1"
+python_version = "3.8"
 
 [pipenv]
 allow_prereleases = true

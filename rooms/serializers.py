@@ -1,19 +1,16 @@
 from rest_framework import serializers
-from users.serializers import RelatedUserSerializer
+from users.serializers import UserSerializer
 from .models import Room
 
-class ReadRoomSerializer(serializers.ModelSerializer):
 
-    user = RelatedUserSerializer()
+class RoomSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer()
 
     class Meta:
         model = Room
-        exclude = ("modified",)
-
-class WriteRoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Room
-        exclude = ("user", "modified", "created")
+        exclude = ( "modified",)
+        read_only_fields= ('user','id', 'created','updated') # edit 필요없는 field들 
 
     def validate(self, data):
         #instance가 존재하지 않는다는 것은 객체를 새로 만드는 상황을 의미
