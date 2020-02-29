@@ -16,7 +16,8 @@ class RoomsView(APIView):
         paginator = OwnPagination()
         rooms = Room.objects.all()
         results = paginator.paginate_queryset(rooms, request)
-        serializer = RoomSerializer(results, many=True)
+        # context로 호출하는 user 보냄
+        serializer = RoomSerializer(results, many=True, context={"request": request})
         return paginator.get_paginated_response(serializer.data)
 
     def post(self, request):
@@ -86,9 +87,9 @@ def room_search(request):
 
     filter_kwargs = {}
     if max_price is not None:
-        filter_kwargs["price__lte"] = max_price # less  equal
+        filter_kwargs["price__lte"] = max_price # less  equal 작거나 같음
     if min_price is not None:
-        filter_kwargs["price__gte"] = min_price # greater  equal
+        filter_kwargs["price__gte"] = min_price # greater  equal 크거나 같음
     if beds is not None:
         filter_kwargs["beds__gte"] = beds
     if bedrooms is not None:
